@@ -54,42 +54,103 @@ function initEnvelopeOpening() {
     if (envelopeWrapper) envelopeWrapper.addEventListener('click', openEnvelope);
 }
 
-/* ----------------- 2. CHEERFUL ROMANTIC AUDIO (WEB AUDIO API) ----------------- */
+/* ----------------- 2. WEDDING SONG PLAYER ("فرحة" - محمود العسيلي) ----------------- */
 let audioCtx = null;
 let isAudioPlaying = false;
 let musicTimer = null;
 
-function getAudioContext() {
-    if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
+function getAudioElement() {
+    return document.getElementById('weddingAudio');
+}
+
+function updateAudioUI(isPlaying) {
+    const musicBtn = document.getElementById('musicToggleBtn');
+    const label = document.getElementById('audioLabel');
+    if (!musicBtn) return;
+
+    if (isPlaying) {
+        musicBtn.classList.remove('muted');
+        musicBtn.classList.add('playing');
+        if (label) label.innerText = "";
+    } else {
+        musicBtn.classList.add('muted');
+        musicBtn.classList.remove('playing');
+        if (label) label.innerText = "";
     }
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
+}
+
+function startJoyfulMusic() {
+    const audio = getAudioElement();
+    if (audio) {
+        audio.volume = 0.8;
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                isAudioPlaying = true;
+                updateAudioUI(true);
+            }).catch(() => {
+                // If browser blocks audio or file not found yet, fallback to synthesized chime
+                startSynthFallback();
+            });
+        }
+    } else {
+        startSynthFallback();
     }
-    return audioCtx;
+}
+
+function stopJoyfulMusic() {
+    isAudioPlaying = false;
+    const audio = getAudioElement();
+    if (audio) {
+        audio.pause();
+    }
+    stopSynthFallback();
+    updateAudioUI(false);
 }
 
 function initAudioController() {
     const musicBtn = document.getElementById('musicToggleBtn');
-    const label = document.getElementById('audioLabel');
+    const audio = getAudioElement();
+
+    if (audio) {
+        audio.addEventListener('play', () => {
+            isAudioPlaying = true;
+            updateAudioUI(true);
+        });
+        audio.addEventListener('pause', () => {
+            isAudioPlaying = false;
+            updateAudioUI(false);
+        });
+        audio.addEventListener('ended', () => {
+            // loop
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
+        });
+    }
 
     if (!musicBtn) return;
 
     musicBtn.addEventListener('click', () => {
         if (!isAudioPlaying) {
             startJoyfulMusic();
-            musicBtn.classList.remove('muted');
-            if (label) label.innerText = 'الموسيقى تعمل';
         } else {
             stopJoyfulMusic();
-            musicBtn.classList.add('muted');
-            if (label) label.innerText = 'تشغيل الموسيقى';
         }
     });
 }
 
-// Warm, joyful arpeggio scale
+/* Synthesizer fallback if local mp3 is still loading */
+function getAudioContext() {
+    if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+    }
+    return audioCtx;
+}
+
 const joyfulNotes = [
     261.63, 329.63, 392.00, 523.25, // C - E - G - C
     293.66, 369.99, 440.00, 587.33, // D - F# - A - D
@@ -100,6 +161,7 @@ const joyfulNotes = [
 function playAcousticNote(freq, time, duration = 1.4) {
     try {
         const ctx = getAudioContext();
+        if (!ctx) return;
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
 
@@ -120,38 +182,37 @@ function playAcousticNote(freq, time, duration = 1.4) {
     }
 }
 
-function startJoyfulMusic() {
+function startSynthFallback() {
     isAudioPlaying = true;
+    updateAudioUI(true);
     let stepIndex = 0;
     const ctx = getAudioContext();
+    if (!ctx) return;
 
     function step() {
         if (!isAudioPlaying) return;
         const now = ctx.currentTime;
         const freq = joyfulNotes[stepIndex % joyfulNotes.length];
-        
         playAcousticNote(freq, now, 1.5);
-        
-        // Gentle harmony
         if (stepIndex % 2 === 0) {
             playAcousticNote(freq * 1.25, now + 0.12, 1.2);
         }
-
         stepIndex++;
     }
 
     step();
+    if (musicTimer) clearInterval(musicTimer);
     musicTimer = setInterval(step, 650);
 }
 
-function stopJoyfulMusic() {
-    isAudioPlaying = false;
+function stopSynthFallback() {
     if (musicTimer) clearInterval(musicTimer);
 }
 
 function playChime() {
     try {
         const ctx = getAudioContext();
+        if (!ctx) return;
         const chimeNotes = [523.25, 659.25, 783.99, 1046.50];
         const now = ctx.currentTime;
         chimeNotes.forEach((freq, idx) => {
