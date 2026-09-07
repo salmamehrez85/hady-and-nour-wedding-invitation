@@ -299,19 +299,67 @@ function initCardSave() {
     });
 }
 
-/* ----------------- 5. ADD TO CALENDAR ----------------- */
+/* ----------------- 5. UNIVERSAL MOBILE CALENDAR REDIRECTION ----------------- */
 function initCalendarEvent() {
     const calBtn = document.getElementById('addToCalBtn');
     if (!calBtn) return;
 
-    calBtn.addEventListener('click', () => {
-        const title = encodeURIComponent("حفل زفاف هادي & نور - هادي لقى نوره");
-        const details = encodeURIComponent("يسعدنا حضوركم ومشاركتنا فرحة العمر في فندق ماريوت الزمالك - قاعة عايدة الكبرى.");
-        const location = encodeURIComponent("Cairo Marriott Hotel, Saray El Gezira St, Zamalek, Cairo, Egypt");
-        const dates = "20260918T160000Z/20260918T230000Z";
+    calBtn.addEventListener('click', (e) => {
+        e.preventDefault();
 
-        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
-        window.open(url, '_blank');
+        const title = "حفل زفاف هادي & نور - هادي لقى نوره";
+        const description = "يسعدنا حضوركم ومشاركتنا فرحة العمر في فندق ماريوت الزمالك - قاعة عايدة الكبرى الملكية.";
+        const location = "Cairo Marriott Hotel, Saray El Gezira St, Zamalek, Cairo, Egypt";
+        const startDate = "20260918T160000Z";
+        const endDate = "20260918T230000Z";
+
+        // Detect mobile device
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        // Standard iCalendar (.ics) content for Apple Calendar / Samsung Calendar / Native phone calendars
+        const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Hady and Nour Wedding//EN",
+            "CALSCALE:GREGORIAN",
+            "METHOD:PUBLISH",
+            "BEGIN:VEVENT",
+            "UID:hady-nour-wedding-20260918@invitation.com",
+            "DTSTAMP:20260907T000000Z",
+            `DTSTART:${startDate}`,
+            `DTEND:${endDate}`,
+            `SUMMARY:${title}`,
+            `DESCRIPTION:${description}`,
+            `LOCATION:${location}`,
+            "STATUS:CONFIRMED",
+            "BEGIN:VALARM",
+            "TRIGGER:-P1D",
+            "ACTION:DISPLAY",
+            "DESCRIPTION:تذكير: حفل زفاف هادي & نور غداً!",
+            "END:VALARM",
+            "END:VEVENT",
+            "END:VCALENDAR"
+        ].join("\r\n");
+
+        if (isIOS) {
+            // iOS native Calendar opens directly with .ics blob / data url
+            const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.setAttribute('download', 'hady_and_nour_wedding.ics');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else if (isAndroid) {
+            // Android: Open Google Calendar app or web directly
+            const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+            window.location.href = googleCalUrl;
+        } else {
+            // Desktop / General: Download .ics and open Google Calendar
+            const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`;
+            window.open(googleCalUrl, '_blank');
+        }
     });
 }
 
