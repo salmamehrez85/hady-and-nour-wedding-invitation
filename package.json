@@ -1,0 +1,17 @@
+{
+  "name": "hady-and-nour-wedding-invitation",
+  "version": "1.0.0",
+  "description": "Luxury & Joyful Wedding Invitation for Hady & Nour - هادي لقى نوره",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve -l 8080 .",
+    "dev": "npx -y serve -l 8080 ."
+  },
+  "keywords": [
+    "wedding",
+    "invitation",
+    "egyptian"
+  ],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف | هادي & نور - هادي لقى نوره</title>
+    <meta name="description" content="دعوة زفاف هادي ونور - وأخيراً هادي لقى نوره. شاركونا فرحة العمر.">
+    
+    <!-- Google Fonts: Luxury Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,400;1,600&family=Reem+Kufi:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- html2canvas for card saving -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Floating Ambient Starlight Bokeh -->
+    <div id="ambient-particles"></div>
+
+    <!-- Audio Controller Widget -->
+    <div class="audio-widget">
+        <button id="musicToggleBtn" class="audio-bubble-btn" title="تشغيل / كتم الموسيقى">
+            <i class="fa-solid fa-music"></i>
+            <span id="audioLabel">الموسيقى تعمل</span>
+        </button>
+    </div>
+
+    <!-- 1. INTRO SCREEN: LUXURY GOLD FOIL ENVELOPE -->
+    <div id="envelopeScreen" class="envelope-screen">
+        <div class="envelope-scene">
+            
+            <!-- Elegant Intro Letterhead -->
+            <div class="envelope-header-msg">
+                <span class="scene-script">Wedding Invitation</span>
+                <h1 class="scene-names">HADY & NOUR</h1>
+                <p class="scene-sub">دعوة خاصة من القلب لأغلى الناس</p>
+            </div>
+
+            <!-- The Realistic Luxury Envelope -->
+            <div class="envelope-wrapper" id="envelopeWrapper">
+                <div class="envelope-back-pocket"></div>
+                
+                <!-- Inner Luxury Card that slides up -->
+                <div class="envelope-paper-card" id="slidingCard">
+                    <div class="paper-card-inner">
+                        <div class="peek-ornament">✦</div>
+                        <h2 class="peek-title">هادي & نور</h2>
+                        <span class="peek-subtitle">HADY & NOUR</span>
+                        <p class="peek-tagline">« هادي لقى نوره »</p>
+                    </div>
+                </div>
+
+                <div class="envelope-left-fold"></div>
+                <div class="envelope-right-fold"></div>
+                <div class="envelope-bottom-fold"></div>
+                <div class="envelope-top-flap" id="envelopeFlap"></div>
+                
+                <!-- Embossed Metallic Gold Monogram Clasp / Seal -->
+                <div class="wax-seal" id="waxSeal" title="اضغط لفتح الظرف">
+                    <div class="seal-ring">
+                        <span class="seal-sparkle">✦</span>
+                        <span class="seal-monogram">H & N</span>
+                        <span class="seal-sparkle">✦</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Direct Action Prompt -->
+            <div class="envelope-action-area">
+                <button class="open-trigger-btn" id="openEnvelopeBtn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                    <span>اضغط لفتح الظرف • Open the Envelope</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. MAIN INVITATION CARD (Luxury Pearl & Warm Gold Styling) -->
+    <main class="invitation-main" id="invitationMain">
+        <div class="invitation-card-container" id="printableWeddingCard">
+            
+            <!-- Creative Gold Starburst / Light Emblem Header -->
+            <div class="card-ornament-header">
+               
+                <div class="holy-verse-badge">
+                    <span>وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً</span>
+                </div>
+            </div>
+
+            <!-- Couple Names & Slogan -->
+            <div class="names-and-titles">
+                <span class="invitation-kicker"> يسرّنا دعوتكم لحضور حفل زفاف</span>
+                
+                <div class="couple-hero-names">
+                    <span class="name-ar">هـادي</span>
+                    <span class="and-symbol">&</span>
+                    <span class="name-ar">نـور</span>
+                </div>
+
+                <!-- THE VIRAL ARABIC SENTENCE BANNER (Harmonious Champagne Gold) -->
+                <div class="viral-sentence-banner">
+                    <span class="gold-ornament">✦</span>
+                    <h2 class="main-arabic-sentence">هـادي لقى نـوره</h2>
+                    <span class="gold-ornament">✦</span>
+                </div>
+
+                <p class="emotional-quote">
+                    "وجَمَعَ اللهُ بين قلبين اختارا بعضهما لتبدأ رحلة العمر.. فنور عيني لقت هداها، وهادي نوّر حياته بنوره."
+                </p>
+            </div>
+
+            <!-- Couple Portrait Frame -->
+            <div class="couple-photo-showcase">
+                <div class="photo-glow-border">
+                    <img src="assets/childhood_couple.jpg" alt="هادي ونور" class="couple-img">
+                </div>
+                <span class="photo-caption">من حكايات وبراءة الطفولة إلى ليلة العمر الجميلة</span>
+            </div>
+
+            <!-- Wedding Details: Date & Venue with Embedded Google Map -->
+            <div class="details-highlight-card">
+                <div class="detail-cell date-cell">
+                    <span class="detail-label">موعد الفرح • The Date</span>
+                    <h3 class="detail-main-text">الجمعة، 18 سبتمبر 2026</h3>
+                    <span class="detail-sub-text">Friday, September 18, 2026</span>
+                    <span class="detail-time-badge">الساعة 7:00 مساءً (7:00 PM)</span>
+                </div>
+
+                <div class="detail-divider"></div>
+
+                <div class="detail-cell venue-cell">
+                    <span class="detail-label">مكان الحفل • The Venue</span>
+                    <h3 class="detail-main-text">فندق ماريوت الزمالك</h3>
+                    <span class="detail-sub-text">قاعة عايدة الكبرى الملكية</span>
+                    <span class="detail-time-badge">شارع سراي الجزيرة، حي الزمالك، القاهرة</span>
+                </div>
+            </div>
+
+            <!-- INTERACTIVE GOOGLE MAPS SECTION -->
+            <div class="venue-map-wrapper">
+                <div class="map-header">
+                    <i class="fa-solid fa-map-location-dot map-icon"></i>
+                    <span>موقع القاعة على الخريطة (Google Maps)</span>
+                </div>
+                <div class="map-frame-box">
+                    <iframe 
+                        title="خريطة فندق ماريوت الزمالك"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.076326466986!2d31.2223805!3d30.0619172!2m3!1f0!2f0!3f0!3m2!1i1024!2f768!4f13.1!3m3!1m2!1s0x145840df3dc72e79%3A0x868351cfdbec0015!2sCairo%20Marriott%20Hotel%20%26%20Omar%20Khayyam%20Casino!5e0!3m2!1sen!2seg!4v1700000000000!5m2!1sen!2seg" 
+                        width="100%" 
+                        height="240" 
+                        style="border:0; border-radius: 14px;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+                <a href="https://maps.google.com/?q=Cairo+Marriott+Hotel+Zamalek" target="_blank" class="direct-map-link-btn">
+                    <i class="fa-solid fa-diamond-turn-right"></i>
+                    <span>اضغط هنا لفتح الاتجاهات مباشرة في تطبيق Google Maps</span>
+                </a>
+            </div>
+
+            <!-- Warm Emotional Closing -->
+            <div class="warm-closing-message">
+                <p class="closing-text">
+                    "فرحتنا لا تكتمل إلا بوجودكم ومشاركتكم لنا هذه الليلة التي طال انتظارها.. بانتظار تشريفكم لنصنع معاً أروع الذكريات."
+                </p>
+            </div>
+
+            <!-- CUTE PRAYER & MESSAGE SECTION FOR GUESTS -->
+            <section class="guest-wishes-section">
+                <div class="wishes-box-header">
+                    <span class="wishes-kicker">دعوة طيبة من القلب</span>
+                    <h3 class="wishes-title">كلمة حلوة أو دعوة للعروسين</h3>
+                    <p class="wishes-desc">شاركونا دعواتكم المباركة وكلماتكم الصادقة لتسعدوا قلب هادي ونور في ليلة العمر</p>
+                </div>
+
+                <!-- Input Form -->
+                <form id="wishesQuickForm" class="wishes-quick-form">
+                    <div class="wishes-inputs-row">
+                        <input type="text" id="wishAuthorInput" class="wish-input" placeholder="اسمك الكريم / العائلة" required>
+                    </div>
+                    <div class="wishes-inputs-row">
+                        <textarea id="wishTextInput" class="wish-textarea" rows="2" placeholder="اكتب دعوة مباركة أو كلمة دافئة لهادي ونور..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-wish-btn">
+                        <i class="fa-regular fa-paper-plane"></i>
+                        <span>إرسال الدعوة والمباركة</span>
+                    </button>
+                </form>
+
+                <!-- Live Wishes Feed -->
+                <div class="wishes-feed-list" id="wishesFeedList">
+                    <div class="single-wish-card">
+                        <div class="wish-meta">
+                            <strong class="author-name">عائلة عماد الدين</strong>
+                            <span class="wish-badge">دعوة مباركة</span>
+                        </div>
+                        <p class="wish-content">
+                            "بارك الله لكما وبارك عليكما وجمع بينكما في خير.. ربنا يسعدكم ويديم الود والنور في بيتكم وحياتكم."
+                        </p>
+                    </div>
+
+                    <div class="single-wish-card highlight">
+                        <div class="wish-meta">
+                            <strong class="author-name">أصحاب هادي ونور</strong>
+                            <span class="wish-badge">من القلب</span>
+                        </div>
+                        <p class="wish-content">
+                            "ألف ألف مبروك لأحلى كابل.. هادي لقى نوره، وعقبال سنين طويلة مليانة فرح ونجاح وضحكة حلوة دايماً."
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Countdown Strip -->
+            <div class="countdown-bar">
+                <div class="countdown-heading">باقي على الفرحة وليلة العمر</div>
+                <div class="timer-digits">
+                    <div class="digit-item">
+                        <span class="val" id="days">00</span>
+                        <span class="lbl">يوم </span>
+                    </div>
+                    <span class="sep">:</span>
+                    <div class="digit-item">
+                        <span class="val" id="hours">00</span>
+                        <span class="lbl">ساعة</span>
+                    </div>
+                    <span class="sep">:</span>
+                    <div class="digit-item">
+                        <span class="val" id="minutes">00</span>
+                        <span class="lbl">دقيقة </span>
+                    </div>
+                    <span class="sep">:</span>
+                    <div class="digit-item">
+                        <span class="val" id="seconds">00</span>
+                        <span class="lbl">ثانية </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="invitation-quick-actions">
+             
+
+                <button id="addToCalBtn" class="action-card-btn cal-btn">
+                    <i class="fa-regular fa-calendar-check"></i>
+                    <span>حفظ الموعد </span>
+                </button>
+
+          
+            </div>
+
+            <div class="card-bottom-info">
+                <span>Dress Code: Rose Gold for Bridesmaids</span>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
